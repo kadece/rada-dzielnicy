@@ -1,0 +1,29 @@
+Przebieg cyklu newslettera Stowarzyszenia Bezpieczny i Zielony Ursus (BiZU) — ETAP 1: PROPOZYCJA TEMATÓW wydania #{ISSUE}, okno {WINDOW}.
+
+Działasz bez interakcji z użytkownikiem. Wykonaj kolejno:
+
+1. DOKUMENTY: Przeczytaj przez connector_google_drive_mcp (search_files z query "parent_id = '{DRIVE_FOLDER_ID}'" potem read_file_content) plik PROCEDURE.md oraz template.html — pełna procedura, metody i pułapki. Ostatnie wysłane wydanie (example-newsletter-*.html) posłuży Ci w etapie finalizacji, teraz tylko sprawdzisz nazwy plików w folderze dla numeracji.
+
+2. ZBIÓRKA: Zbierz posty z okresu {WINDOW} (od poprzedniej wysyłki do dnia wykonania przebiegu) z 5 stron na Facebooku:
+   - Bezpieczny i Zielony Ursus — https://www.facebook.com/zielonyursus/
+   - Krzysiek Daukszewicz — https://www.facebook.com/kdauksz/
+   - Karol Bąkowski — https://www.facebook.com/profile.php?id=61550267386955
+   - Karolina Sowińska — https://www.facebook.com/k.sowinska.radna
+   - Michał Sutyniec — https://www.facebook.com/michalsut
+   Facebook pobieraj WYŁĄCZNIE przez czytnik r.jina.ai (tools.connector_web_search.open_url na adres https://r.jina.ai/<URL>) na dwa sposoby:
+   a) wtyczka strony (treść ostatnich postów, bez permalinków):
+      https://www.facebook.com/plugins/page.php?href=<URL strony zakodowany>&tabs=timeline&width=500&height=4000&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true
+   b) shell strony (1–2 najnowsze posty Z permalinkami pfbid):
+      https://www.facebook.com/<handle>/posts
+   Pułapki: odstęp między zapytaniami do r.jina.ai min. 20 s (limit 429 — czekaj i ponów); ściana logowania ("Log into Facebook") pojawia się losowo — ponów wywołanie; profile kdauksz/michalsut często są za ścianą logowania — wtedy użyj pośrednich wzmianek (BiZU, Bąkowski) i zaznacz to w propozycji.
+   Dodatkowo pobierz artykuły BiZU z okresu przez tools.connector_bizuwww_9ea3.listPosts (WordPress zielonyursus.pl) — to najlepsze bezpośrednie linki.
+
+3. WYBÓR TEMATÓW: wybierz 3 duże sprawy (inwestycje miejskie, metro, budżet/szkoła, sesje rady), 3 małe sprawy (wpisy radnych, zbiórki, wydarzenia) i 3 lokalne aktualności (relacje, podcast, zmiany w najbliższej okolicy). Każdy temat: nagłówek + 1–3 zdania streszczenia + bezpośredni link (kolejność preferencji: permalink pfbid > artykuł na zielonyursus.pl > kotwica https://www.facebook.com/photo/?fbid=<fbid pierwszego obrazka posta>).
+
+4. ZAPISZ propozycję do pliku {PROPOSAL_FILE} (tylko zwykły tekst, markdown): numer wydania #, okno {WINDOW}, sekcje Duże sprawy / Małe sprawy / Lokalne aktualności — każdy temat z nagłówkiem, opisem i linkiem, plus krótką informację o źródłach i ewentualnych ograniczeniach (np. profile za ścianą logowania).
+
+5. WYŚWIETL e-mail (tools.connector_gmail.send_email) do {RECIPIENT}: subject "Propozycja tematów - Newsletter Bezpiecznego i Zielonego Ursusa #{ISSUE} ({WINDOW})", treść (body + htmlBody): lista 9 tematów w trzech sekcjach z krótkimi opisami i linkami, z prośbą o zatwierdzenie lub korekty: "Odpowiedz na tego maila ze zgodą lub korektami — po zatwierdzeniu przygotuję finalny newsletter. Do finalizacji na serwerze: python C:\Users\Krzysztof\bizu-server\newsletter_runner.py finalize [korekty]". NIE wysyłaj finalnego newslettera w tym przebiegu — to tylko propozycja.
+
+6. Odpowiedz finalną linią dokładnie "RESULT: OK" jeśli mail został wysłany i plik propozycji zapisany; w przeciwnym razie "RESULT: FAIL - <krótki powód>" (np. wszystkie metody FB zablokowane — wtedy wyślij maila z tego co udało się zebrać z zielonyursus.pl i zaznacz ograniczenia, a RESULT: FAIL użyj tylko gdy nie wyszło nic).
+
+Dziś jest {TODAY}.

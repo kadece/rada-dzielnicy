@@ -1,0 +1,32 @@
+Finalizacja newslettera Stowarzyszenia Bezpieczny i Zielony Ursus (BiZU) — ETAP 2: wydanie #{ISSUE}, okno {WINDOW}. Krzysiek ZATWIERDZIŁ tematy.
+
+Działasz bez interakcji z użytkownikiem. Wykonaj kolejno:
+
+1. PRZECZYTAJ propozycję tematów z pliku {PROPOSAL_FILE} (zwykły plik tekstowy).
+   Korekty Krzyśka do zastosowania: {CORRECTIONS}
+
+2. POBIERZ przez connector_google_drive_mcp.download_file_content:
+   - szablon: template.html (file_id 1a6xF_ijIvTSwOnyhVdNeuMjAYltY0mVZ)
+   - przykład wydania #1 dla formatu bloków i stopki: example-newsletter-2026-11-17.html (file_id 1a1o9QrqBJM42iJLemmKOeXTpEWIyybA8)
+
+3. PRZYGOTUJ HTML finalnego newslettera wg template.html:
+   - nagłówek: "Newsletter Bezpiecznego i Zielonego Ursusa #{ISSUE}"
+   - podtytuł: "{WINDOW} r."
+   - sekcje "Duże sprawy" / "Małe sprawy" / "Lokalne aktualności" — bloki w stylu wydania #1 (inline CSS jak w szablonie/przykładzie), każdy temat: nagłówek h3 + 1–3 zdania + link(i) jako <a href=...>
+   - stopka jak w wydaniu #1: pozdrowienia, "Zespół Stowarzyszenia Bezpieczny i Zielony Ursus", zielonyursus.pl, facebook.com/zielonyursus, informacja o członkostwie.
+   Przygotuj też wersję tekstową (body) — te same tematy w czystym tekście z linkami.
+
+4. WYŚLIJ e-mail (tools.connector_gmail.send_email) WYŁĄCZNIE do {RECIPIENT} — Krzysiek sam rozsyła newsletter dalej do członków:
+   - subject: "Newsletter Bezpiecznego i Zielonego Ursusa #{ISSUE} - {WINDOW} r."
+   - htmlBody: przygotowany HTML; body: wersja tekstowa.
+
+5. ZARCHIWIZUJ wydanie w Drive: tools.connector_google_drive_mcp.create_file z parametrami:
+   - title: "example-newsletter-{TODAY}.html"
+   - parent_id: "{DRIVE_FOLDER_ID}"
+   - text_content: wysłany HTML
+   - content_mime_type: "text/html"
+   - disable_conversion_to_google_type: true
+
+6. Odpowiedz finalną linią dokładnie "RESULT: OK" jeśli mail został wysłany i wydanie zarchiwizowane w Drive; w przeciwnym razie "RESULT: FAIL - <krótki powód>".
+
+Dziś jest {TODAY}.
